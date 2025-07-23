@@ -1,0 +1,10 @@
+<h1>전체 구구단</h1>
+
+{% for item in gugudans %}
+  <div style="margin-bottom: 20px;">
+    <h2>{{ item.dan }}단</h2>
+    {% for line in item.lines %}
+      {{ line }}<br>
+    {% endfor %}
+  </div>
+{% endfor %}

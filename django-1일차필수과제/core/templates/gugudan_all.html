@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>전체 구구단</title>
+  <!-- 스타일 정의 -->
+</head>
+<body>
+  <h1>전체 구구단 (1단~9단)</h1>
+  <div>
+    {% for item in gugudans %}
+      <div class="dan">
+        <h3>{{ item.dan }}단</h3>
+        <ul>
+          {% for line in item.lines %}
+            <li>{{ line }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  </div>
+</body>
+</html>
