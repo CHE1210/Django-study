@@ -13,8 +13,8 @@ from todo.models import Todo
 def todo_list(request):
     todo_list = Todo.objects.filter(user=request.user).order_by('created_at')
     q = request.GET.get('q')
+    # q란?
     if q:
-
         todo_list = todo_list.filter(Q(title__icontains=q) | Q(description__icontains=q))
     paginator = Paginator(todo_list, 10)
     page_number = request.GET.get('page')

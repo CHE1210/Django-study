@@ -124,10 +124,14 @@
                 </form>
             </div>
         {% else %}
-            <div style="display: flex; justify-content: right; font-size: 20px;">
-                <a href="{% url 'signup' %}" style="margin-right: 10px">SignUp</a>
-                <a href="{% url 'login' %}">Login</a>
-            </div>
+           <div style="display: flex; justify-content: space-between">
+{%if not request.user.is_staff %}
+    <h1>{{ request.user.username }}'s Todo List</h1>
+{% else %}
+    <h1>All To Do List (By. Admin)</h1>
+{% endif %}
+    <button class="create-button" onclick="location.href='{% url 'cbv_todo_create' %}'">생성하기</button>
+</div>
         {% endif %}
     </nav>
 
