@@ -30,17 +30,27 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+]
+
+CUSTOM_APPS = [
     'todo',
     'users',
-    'django_extensions',
 ]
+
+THIRD_PARTY_APPS = [
+    'django_extensions',
+    'django_summernote',
+    'django_cleanup',
+]
+
+INSTALLED_APPS = DJANGO_APPS + CUSTOM_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -119,10 +129,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_DIRS = BASE_DIR / 'static'
+STATICFILES_DIRS = [
+    STATIC_DIRS,
+]
+STATIC_ROOT = BASE_DIR / '.static_root'
+
+# Media files
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # login / logout
@@ -130,10 +147,48 @@ LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/cbv/todo/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 
-# static
-STATIC_URL = '/static/'
-STATIC_DIR = BASE_DIR / 'static'
-STATICFILES_DIRS = [
-    STATIC_DIR,
-]
-STATIC_ROOT = BASE_DIR / 'static_root'
+# summernote
+SUMMERNOTE_CONFIG = {
+    'iframe': True,
+
+    # You can put custom Summernote settings
+    'summernote': {
+        # As an example, using Summernote Air-mode
+        'airMode': False,
+
+        # Change editor size
+        'width': '100%',
+        'height': '480',
+
+        # Toolbar customization
+        # https://summernote.org/deep-dive/#custom-toolbar-popover
+        'toolbar': [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture']],
+            ['view', ['fullscreen']],
+        ],
+
+        # Or, explicitly set language/locale for editor
+        'lang': 'ko-KR',
+
+        'codemirror': {
+            'mode': 'htmlmixed',
+            'lineNumbers': 'true',
+            # You have to include theme file in 'css' or 'css_for_inplace' before using it.
+            'theme': 'monokai',
+        },
+    },
+
+    # Require users to be authenticated for uploading attachments.
+    'attachment_require_authentication': True,
+
+    # You can completely disable the attachment feature.
+    'disable_attachment': False,
+
+    # Set to `False` to return attachment paths in relative URIs.
+    'attachment_absolute_uri': True,
+}

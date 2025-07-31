@@ -1,6 +1,7 @@
 from django.contrib import admin
 from todo.models import Todo, Comment
 
+
 class CommentInline(admin.TabularInline):
     model = Comment
     extra = 0
@@ -16,7 +17,7 @@ class TodoAdmin(admin.ModelAdmin):
     list_display_links = ('title',)
     fieldsets = (
         ('Todo Info', {
-            'fields': ('user', 'title', 'description', 'is_completed')
+            'fields': ('user', 'title', 'description', 'completed_image', 'is_completed')
         }),
         ('Date Range', {
             'fields': ('start_date', 'end_date')
@@ -37,4 +38,3 @@ class CommentAdmin(admin.ModelAdmin):
             'fields': ('todo', 'user', 'message')
         }),
     )
-
